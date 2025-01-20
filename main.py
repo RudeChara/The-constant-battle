@@ -1,44 +1,61 @@
 import pygame
-import os
+from check_buttons import Button_check
 import sys
 from pygame import Surface
 from pygame.sprite import Sprite
-#Это калл
+from load_image import Load
+
+
+# Это калл
 
 def button_down(screen, event_pos, sprite):
     if sprite.sprites()[0].rect.x >= event_pos[0] and sprite.sprites()[0].rect.x[1] + 100 >= event_pos[0]:
         print('1222')
 
 
-def load_image(name, color_key=None):
-    fullname = os.path.join('data', name)
-    try:
-        image = pygame.image.load(fullname)
-    except pygame.error as message:
-        print('Не удаётся загрузить:', name)
-        raise SystemExit(message)
-    image = image.convert_alpha()
-    if color_key is not None:
-        if color_key is -1:
-            color_key = image.get_at((0, 0))
-        image.set_colorkey(color_key)
-    return image
+# def load_image(name, color_key=None):
+#     fullname = os.path.join('data', name)
+#     try:
+#         image = pygame.image.load(fullname)
+#     except pygame.error as message:
+#         print('Не удаётся загрузить:', name)
+#         raise SystemExit(message)
+#     image = image.convert_alpha()
+#     if color_key is not None:
+#         if color_key is -1:
+#             color_key = image.get_at((0, 0))
+#         image.set_colorkey(color_key)
+#     return image
 
 
 pygame.init()
 size = width, height = 1920, 1080
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+# screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((800, 800))
 sprite_group = pygame.sprite.Group()
 hero_group = pygame.sprite.Group()
 tile_width = tile_height = 50
 
+# tile_image = {'wall': load_image('box.png'),
+#               'empty': load_image('grass.png')}
+# player_image = load_image('mar.png')
+
+tile_width = tile_height = 50
+
+
+def retranslator(level):
+    pass
+
 
 def get_all_sprites(sprite: pygame.sprite.Sprite, pos, refors=False) -> pygame.sprite.Group:
     # создадим группу, содержащую все спрайты
-    x, y = pos
+
     all_sprites = pygame.sprite.Group()
     # создадим 20 спрайтов
-    for _ in range(1):
+    for i in range(1, 3):
+        x, y = pos
+        x *= i ** 2
+        y *= i ** 2
         # создадим спрайт и добавим его в группу
         sprite: Sprite = pygame.sprite.Sprite(all_sprites)
         # определим его вид
@@ -60,7 +77,7 @@ def terminate():
 
 
 def start_screen():
-    fon = pygame.transform.scale(load_image('fon.jpg'), size)
+    fon = pygame.transform.scale(Load.load_image([], name='fon.jpg'), size)  # Я не вспомнил как избавиться от self
     screen.blit((fon), (0, 0))
     get_all_sprites(screen, pos=(100, 100))
     while True:
@@ -92,7 +109,8 @@ if __name__ == '__main__':
                 if event.key == pygame.K_LEFT:
                     pass
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print(all_sprites.sprites()[0].rect.x)
+                print(str(Button_check(screen, event.pos, all_sprites.sprites()).test()))
+                # я тут вроде настрроил поставил 2 кнопки и в группу их одну запихал
 
         screen.fill(pygame.Color('black'))
         all_sprites.draw(screen)
