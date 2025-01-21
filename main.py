@@ -29,7 +29,7 @@ def button_down(screen, event_pos, sprite):
 
 
 pygame.init()
-size = width, height = 1920, 1080
+size = width, height = 800, 800
 # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen = pygame.display.set_mode((800, 800))
 sprite_group = pygame.sprite.Group()
@@ -47,15 +47,13 @@ def retranslator(level):
     pass
 
 
-def get_all_sprites(sprite: pygame.sprite.Sprite, pos, refors=False) -> pygame.sprite.Group:
+def get_all_sprites(sprite: pygame.sprite.Sprite, posi, refors=False) -> pygame.sprite.Group:
     # создадим группу, содержащую все спрайты
-
     all_sprites = pygame.sprite.Group()
-    # создадим 20 спрайтов
-    for i in range(1, 3):
+    # Без колена не работал
+    for i in range(2):
+        pos = posi[i]
         x, y = pos
-        x *= i ** 2
-        y *= i ** 2
         # создадим спрайт и добавим его в группу
         sprite: Sprite = pygame.sprite.Sprite(all_sprites)
         # определим его вид
@@ -79,7 +77,6 @@ def terminate():
 def start_screen():
     fon = pygame.transform.scale(Load.load_image([], name='fon.jpg'), size)  # Я не вспомнил как избавиться от self
     screen.blit((fon), (0, 0))
-    get_all_sprites(screen, pos=(100, 100))
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -93,8 +90,8 @@ if __name__ == '__main__':
     pygame.display.set_caption('Марио')
     player = None
     ranning = True
-    all_sprites = get_all_sprites(screen, pos=(100, 100))
-    start_screen()
+    all_sprites = get_all_sprites(screen, [(100, 100), (400, 400)])
+
     while ranning:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -109,7 +106,11 @@ if __name__ == '__main__':
                 if event.key == pygame.K_LEFT:
                     pass
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print(str(Button_check(screen, event.pos, all_sprites.sprites()).test()))
+                print(Button_check(screen, event.pos, all_sprites.sprites()).test())
+                if type(Button_check(screen, event.pos, all_sprites.sprites()).test()) == int:
+                    if Button_check(screen, event.pos, all_sprites.sprites()).test() == 1:
+                        start_screen()
+                    all_sprites.sprites()[Button_check(screen, event.pos, all_sprites.sprites()).test()].kill()
                 # я тут вроде настрроил поставил 2 кнопки и в группу их одну запихал
 
         screen.fill(pygame.Color('black'))

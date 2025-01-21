@@ -10,6 +10,8 @@ class Button_check:
 
     def test(self):
         for i in self.sprite_base:
-            if self.event_pos >= (i.rect.x, i.rect.y) and self.event_pos <= (i.rect.x + i.rect[-2], i.rect.y + i.rect[-1]) :
-                #тут потом будет еще и рендер кликов но уже поздно
-                return 'test 01 все верно но нужен норм возврат'
+            if (self.event_pos[0] >= i.rect.x and self.event_pos[1] >= i.rect.y) and (
+                    self.event_pos[0] <= i.rect.x + i.rect[-2] and self.event_pos[1] <= i.rect.x + i.rect[-1]):
+                # тут потом будет еще и рендер кликов но уже поздно
+                # print(self.sprite_base.index(i)) это возврат с помощью id
+                return self.sprite_base.index(i)
