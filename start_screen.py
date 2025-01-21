@@ -11,5 +11,5 @@ def draw_start_screen(screen: Surface) -> None:
 
     name_game = "The Constant Battle"
     font = pygame.font.Font(FONT_NAME, 100)
-    text = font.render(name_game, 1, pygame.Color("#200c4f"))
+    text = font.render(name_game, False, pygame.Color("#0a0a0a"))
     screen.blit(text, (50, 50))

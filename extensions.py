@@ -23,6 +23,13 @@ def load_image(name, color_key=None) -> Surface:
     return image
 
 
+def set_color(image, color) -> None:
+    for x in range(image.get_width()):
+        for y in range(image.get_height()):
+            color.a = image.get_at((x, y)).a
+            image.set_at((x, y), color)
+
+
 def load_level(filename):
     filename = "data/" + filename
     if not os.path.isfile(filename):
