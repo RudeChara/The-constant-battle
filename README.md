@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
- <title>мой сайт шапка</title>
+
  <meta charset="utf-8"><!--а это надо не скажу зачем-->
- <style type="text/css">
- </style>
+
 </head>
 <!--мой пример юзать не советую там для адыкватной работы еще много стилев надо-->
 <body>
