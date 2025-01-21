@@ -7,3 +7,5 @@ IMAGES = {
 }
 
 TILE_SIZE = 50
+
+FONT_NAME = "data/Monocraft.otf"

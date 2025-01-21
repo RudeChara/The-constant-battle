@@ -1,21 +1,15 @@
 import pygame
 from pygame import Surface
 
+from constants import WIDTH, HEIGHT, FONT_NAME
 from extensions import load_image
 
 
-def start_screen(screen: Surface) -> None:
-    intro_text = ["The constant battle"]
-
-    fon = pygame.transform.scale(load_image('fon.jpg'), (screen.get_width(), screen.get_height()))
+def draw_start_screen(screen: Surface) -> None:
+    fon = pygame.transform.scale(load_image('fon_start_screen.jpg'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
-    font = pygame.font.Font(None, 30)
-    text_coord = 50
-    for line in intro_text:
-        string_rendered = font.render(line, 1, pygame.Color('black'))
-        intro_rect = string_rendered.get_rect()
-        text_coord += 10
-        intro_rect.top = text_coord
-        intro_rect.x = 10
-        text_coord += intro_rect.height
-        screen.blit(string_rendered, intro_rect)
+
+    name_game = "The Constant Battle"
+    font = pygame.font.Font(FONT_NAME, 100)
+    text = font.render(name_game, 1, pygame.Color("#200c4f"))
+    screen.blit(text, (50, 50))
