@@ -87,11 +87,10 @@ def start_screen():
 
 
 if __name__ == '__main__':
-    pygame.display.set_caption('Марио')
+    pygame.display.set_caption('Постоянная битва')
     player = None
     ranning = True
-    all_sprites = get_all_sprites(screen, [(100, 100), (400, 400)])
-
+    all_sprites = get_all_sprites(screen, [(100, 100), (500, 100)])
     while ranning:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -106,11 +105,12 @@ if __name__ == '__main__':
                 if event.key == pygame.K_LEFT:
                     pass
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print(Button_check(screen, event.pos, all_sprites.sprites()).test())
                 if type(Button_check(screen, event.pos, all_sprites.sprites()).test()) == int:
                     if Button_check(screen, event.pos, all_sprites.sprites()).test() == 1:
                         start_screen()
-                    all_sprites.sprites()[Button_check(screen, event.pos, all_sprites.sprites()).test()].kill()
+                        all_sprites.sprites()[Button_check(screen, event.pos, all_sprites.sprites()).test()].kill()
+                        all_sprites.sprites()[0].kill()
+
                 # я тут вроде настрроил поставил 2 кнопки и в группу их одну запихал
 
         screen.fill(pygame.Color('black'))
