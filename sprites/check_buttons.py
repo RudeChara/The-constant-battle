@@ -1,7 +1,3 @@
-import pygame
-from load_image import Load
-
-
 class Button_check:
     def __init__(self, screen, event_pos, button_base):
         self.event_pos = event_pos

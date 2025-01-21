@@ -4,7 +4,7 @@ import os
 
 class Load:#Так проще проверять на наличие
         def load_image(self, name, color_key=None):
-            fullname = os.path.join('data', name)
+            fullname = os.path.join('../data', name)
             try:
                 image = pygame.image.load(fullname)
             except pygame.error as message:
