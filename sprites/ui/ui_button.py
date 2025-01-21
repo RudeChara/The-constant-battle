@@ -11,6 +11,7 @@ class Button(pygame.sprite.Sprite):
         self.size = size
         self.image = pygame.transform.scale(load_image(image), size)
         self.rect = pygame.Rect(position[0], position[1], size[0], size[1])
+        self.need_change = "no"
 
         font = pygame.font.Font(FONT_NAME, font_size)
         text = font.render(text, False, pygame.Color("#0a0a0a"))
@@ -18,12 +19,19 @@ class Button(pygame.sprite.Sprite):
 
     def clicked(self, mouse_position):
         if self.rect.collidepoint(mouse_position):
+            if self.need_change == "no":
+                self.need_change = "yes"
             return True
         return False
 
     def update(self, mouse_position):
         if mouse_position is not None:
             if self.clicked(mouse_position):
-                set_color(self.image, pygame.Color("red"))
+                if self.need_change == "yes":
+                    set_color(self.image, (-20, -20, -20))
+                    self.need_change = "already"
             else:
-                set_color(self.image, pygame.Color("blue"))
+                if self.need_change == "already":
+                    set_color(self.image, (20, 20, 20))
+                    self.need_change = "no"
+

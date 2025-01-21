@@ -23,11 +23,17 @@ def load_image(name, color_key=None) -> Surface:
     return image
 
 
-def set_color(image, color) -> None:
+def set_color(image: Surface, color_key) -> None:
+    color = image.get_colorkey()
+    if color is None:
+        color = (0, 0, 0)
+    image.set_colorkey(((color[0] + color_key[0]) % 256, (color[1] + color_key[1]) % 256,
+                        (color[2] + color_key[2]) % 256))
     for x in range(image.get_width()):
         for y in range(image.get_height()):
-            color.a = image.get_at((x, y)).a
-            image.set_at((x, y), color)
+            color = image.get_at((x, y))
+            image.set_at((x, y), ((color[0] + color_key[0]) % 256, (color[1] + color_key[1]) % 256,
+                                  (color[2] + color_key[2]) % 256))
 
 
 def load_level(filename):
