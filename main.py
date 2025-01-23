@@ -4,6 +4,7 @@ import pygame
 from constants import WIDTH, HEIGHT, FPS
 from start_screen import draw_start_screen
 from sprites.ui.ui_button import Button
+from sprites.ui.ui_text import Text
 
 
 def terminate():
