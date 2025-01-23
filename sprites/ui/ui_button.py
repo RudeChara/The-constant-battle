@@ -35,4 +35,3 @@ class Button(pygame.sprite.Sprite):
                 if self.need_change == "already":
                     set_color(self.image, (20, 20, 20))
                     self.need_change = "no"
-

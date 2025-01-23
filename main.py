@@ -2,9 +2,7 @@ import sys
 import pygame
 
 from constants import WIDTH, HEIGHT, FPS
-from start_screen import draw_start_screen
-from sprites.ui.ui_button import Button
-from sprites.ui.ui_text import Text
+from start_screen import StartScreen
 
 
 def terminate():
@@ -20,12 +18,11 @@ if __name__ == '__main__':
 
     clock = pygame.time.Clock()
 
-    all_buttons = pygame.sprite.Group()
-    button = Button((10, 900), (200, 100), "fight.png", all_buttons, text="Play")
-
     running = True
-    start_screen = True
+    scene = "start"
     position_click_mouse = None
+
+    start_screen = StartScreen(screen)
 
     while running:
         for event in pygame.event.get():
@@ -38,10 +35,10 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN:
                 position_click_mouse = event.pos
         screen.fill((0, 0, 0))
-        if start_screen:
-            draw_start_screen(screen)
-        all_buttons.draw(screen)
-        all_buttons.update(position_click_mouse)
+        if scene == "start":
+            start_screen.draw_start_screen(position_click_mouse)
+        elif scene == "fight":
+            pass
         pygame.display.flip()
         clock.tick(FPS)
     pygame.quit()
