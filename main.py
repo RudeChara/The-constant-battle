@@ -2,7 +2,7 @@ import sys
 import pygame
 
 from constants import WIDTH, HEIGHT, FPS
-from start_screen import StartScreen
+from screens.start_screen import StartScreen
 
 
 def terminate():
