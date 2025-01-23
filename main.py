@@ -3,6 +3,7 @@ import pygame
 
 from constants import WIDTH, HEIGHT, FPS
 from screens.start_screen import StartScreen
+from screens.fight_screen import FightScreen
 
 
 def terminate():
@@ -23,6 +24,7 @@ if __name__ == '__main__':
     position_click_mouse = None
 
     start_screen = StartScreen(screen)
+    fight_screen = FightScreen(screen)
 
     while running:
         for event in pygame.event.get():
@@ -36,9 +38,9 @@ if __name__ == '__main__':
                 position_click_mouse = event.pos
         screen.fill((0, 0, 0))
         if scene == "start":
-            start_screen.draw_start_screen(position_click_mouse)
+            scene = start_screen.draw_start_screen(position_click_mouse)
         elif scene == "fight":
-            pass
+            fight_screen.draw_fight_screen()
         pygame.display.flip()
         clock.tick(FPS)
     pygame.quit()

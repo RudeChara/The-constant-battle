@@ -1,5 +1,4 @@
 import pygame
-from pygame import Surface
 
 from constants import WIDTH, HEIGHT
 from extensions import load_image
@@ -15,11 +14,13 @@ class StartScreen:
                               text="The Constant Battle", font_size=100)
         self.button_play = Button((10, 900), (200, 100), "fight.png", self.start_screen_sprites, text="Play")
 
-    def draw_start_screen(self, position_click_mouse) -> None:
+    def draw_start_screen(self, position_click_mouse):
         fon = pygame.transform.scale(load_image('fon_start_screen.jpg'), (WIDTH, HEIGHT))
         self.screen.blit(fon, (0, 0))
 
         self.start_screen_sprites.draw(self.screen)
         self.start_screen_sprites.update(position_click_mouse)
-        if self.button_play.need_change == "yes":
-            print(True)
+        if self.button_play.need_change == "already":
+            return "fight"
+        else:
+            return "start"
