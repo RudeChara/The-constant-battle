@@ -1,6 +1,5 @@
 import os
 import sys
-
 import pygame
 from pygame import Surface
 
@@ -53,3 +52,31 @@ def load_level(filename):
     max_width = max(map(len, level_map))
 
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
+
+
+def light_screen(surface):
+    target_alpha = 255
+    duration = 5000  # time
+    step = target_alpha / (duration / 100)  # шаг
+    target_alpha = 0
+    if surface.get_alpha() > target_alpha:
+        current_alpha = surface.get_alpha()
+        current_alpha -= step
+        if current_alpha <= target_alpha:
+            current_alpha = target_alpha
+        surface.set_alpha(current_alpha)
+
+
+def blackout_screen(surface, fun):
+    duration = 5000  # time
+    step = 255 / (duration / 100)  # шаг
+    if surface.get_alpha() < 255:
+        fun
+        current_alpha = surface.get_alpha()
+        current_alpha += step
+        if current_alpha > 255:
+            current_alpha = 255
+        surface.set_alpha(current_alpha)
+        return current_alpha
+    else:
+        return 255
