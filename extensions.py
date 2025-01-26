@@ -54,9 +54,8 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def light_screen(surface):
-    target_alpha = 255
-    duration = 5000  # time
+def light_screen(surface, duration=5000):
+    target_alpha = 255  # time
     step = target_alpha / (duration / 100)  # шаг
     target_alpha = 0
     if surface.get_alpha() > target_alpha:
@@ -80,3 +79,13 @@ def blackout_screen(surface, fun):
         return current_alpha
     else:
         return 255
+
+
+def load_video(name, color_key=None) -> Surface:
+    fullname = os.path.join('data', name)
+    if not os.path.isfile(fullname):
+        print(f"Файл с видео '{fullname}' не найден")
+        sys.exit()
+        return ValueError
+    else:
+        return fullname

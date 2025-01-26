@@ -15,7 +15,7 @@ class Training_screen:
         self.button_next = Button((1700, 500), (200, 200), "right_arrow.png", self.edu_screen_sprites, text="next",
                                   text_color='#ffffff')
 
-    def draw_fight_screen(self, position_click_mouse):
+    def draw_screen(self, position_click_mouse):
         fon = pygame.transform.scale(load_image('fon_fight_screen.png'), (WIDTH, HEIGHT))
         self.screen.blit(fon, (0, 0))
 
