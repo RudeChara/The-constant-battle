@@ -2,7 +2,8 @@ import os
 import sys
 import pygame
 from pygame import Surface
-
+from constants import WIDTH, HEIGHT
+target_alpha = 254
 
 def load_image(name, color_key=None) -> Surface:
     fullname = os.path.join('data', name)
@@ -54,31 +55,46 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def light_screen(surface, duration=5000):
-    target_alpha = 255  # time
-    step = target_alpha / (duration / 100)  # шаг
-    target_alpha = 0
-    if surface.get_alpha() > target_alpha:
-        current_alpha = surface.get_alpha()
-        current_alpha -= step
-        if current_alpha <= target_alpha:
-            current_alpha = target_alpha
-        surface.set_alpha(current_alpha)
+# def light_screen(surface, duration=5000):
+#     target_alpha = 255  # time
+#     step = target_alpha / (duration / 100)  # шаг
+#     target_alpha = 0
+#     if surface.get_alpha() > target_alpha:
+#         current_alpha = surface.get_alpha()
+#         current_alpha -= step
+#         if current_alpha <= target_alpha:
+#             current_alpha = target_alpha
+#         surface.set_alpha(current_alpha)
+
+def light_screen(alpha, function_dark, dark_surface):
+    global target_alpha
+    alpha -= 5
+    print('a', target_alpha)
+    print('tg', dark_surface.get_alpha())
+    function_dark()
+    if alpha < target_alpha:
+        alpha = 0
+    dark_surface.set_alpha(alpha)
 
 
-def blackout_screen(surface, fun):
-    duration = 5000  # time
-    step = 255 / (duration / 100)  # шаг
-    if surface.get_alpha() < 255:
-        fun
-        current_alpha = surface.get_alpha()
-        current_alpha += step
-        if current_alpha > 255:
-            current_alpha = 255
-        surface.set_alpha(current_alpha)
-        return current_alpha
+def blackout_screen(dark_surface, function_light, function_dark):
+    global target_alpha
+    alpha = dark_surface.get_alpha()
+    fade_duration = 5000
+    print(target_alpha)
+    fade_step = target_alpha / (fade_duration / 100)
+    if alpha < target_alpha and alpha != 0 and alpha != 255:
+        alpha += fade_step
+        if alpha >= target_alpha:
+            alpha = 255
+        dark_surface.set_alpha(alpha)
+    elif alpha > target_alpha:
+        target_alpha = 0
+        light_screen(alpha, function_dark, dark_surface)
+        alpha = dark_surface.get_alpha()
     else:
-        return 255
+        target_alpha = 254
+        function_dark()
 
 
 def load_video(name, color_key=None) -> Surface:
