@@ -17,7 +17,8 @@ class CreateCharacter:
                                    text="Класс")
         self.button_end = Button((10, 500), (200, 100), "fight.png", self.create_character_screen_sprites,
                                  text="Завершить")
-        self.window_class = Window((250, 20), (400, 900), self.create_character_screen_sprites)
+        self.window_class = pygame.sprite.Group()
+        Window((250, 20), (400, 900), self.window_class)
 
     def draw_start_screen(self, position_click_mouse):
         fon = pygame.transform.scale(load_image('fon_create_character_screen.jpg'), (WIDTH, HEIGHT))

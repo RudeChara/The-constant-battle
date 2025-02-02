@@ -4,8 +4,8 @@ from constants import FONT_NAME
 
 
 class Window(pygame.sprite.Sprite):
-    def __init__(self, position, size, *group_sprites, text="",
-                 color1="#f5c37d", color2="#ffb366", text_color="#0a0a0a"):
+    def __init__(self, position, size, *group_sprites, text="", color1="#f5c37d", color2="#ffb366",
+                 text_color="#0a0a0a"):
         super().__init__(*group_sprites)
         self.position = position
         self.size = size
