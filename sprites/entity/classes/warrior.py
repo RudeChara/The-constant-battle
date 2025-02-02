@@ -1,7 +1,7 @@
 import pygame
 
-from extensions import load_image, set_color
+from sprites.entity.entity import Entity
 
 
-class Warrior():
+class Warrior(Entity):
     pass

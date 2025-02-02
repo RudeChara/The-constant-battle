@@ -1,7 +1,6 @@
 import sys
 import pygame
-from extensions import blackout_screen
-from extensions import light_screen
+from extensions import blackout_screen, light_screen, load_level
 from constants import WIDTH, HEIGHT, FPS
 from screens.start_screen import StartScreen
 from screens.fight_screen import FightScreen
@@ -10,6 +9,7 @@ dark_surface = pygame.Surface((WIDTH, HEIGHT))
 dark_surface.fill((0, 0, 0))
 dark_surface.set_alpha(0)  # установка прозрачности
 current_alpha = 0  # max значение прозрачности
+
 
 def terminate():
     pygame.quit()
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     position_click_mouse = None
 
     start_screen = StartScreen(screen)
-    fight_screen = FightScreen(screen)
+    fight_screen = None
 
     while running:
         for event in pygame.event.get():
@@ -45,6 +45,8 @@ if __name__ == '__main__':
         if scene == "start":
             scene = start_screen.draw_start_screen(position_click_mouse)
         elif scene == "fight":
+            if fight_screen is None:
+                fight_screen = FightScreen(screen, 1, 1)
             if current_alpha == 255:
                 fight_screen.draw_fight_screen()
                 target_alpha = light_screen(dark_surface)

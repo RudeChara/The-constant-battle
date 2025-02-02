@@ -1,19 +1,28 @@
 import pygame
 
 from constants import WIDTH, HEIGHT, TILE_SIZE
-from extensions import load_image
+from extensions import load_image, load_level
 from sprites.ui.ui_button import Button
 from sprites.ui.ui_text import Text
+from sprites.objects.wall import Wall
+from sprites.entity.classes.warrior import Warrior
+from sprites.entity.enemies.zombie import Zombie
+
+
+players = []
+enemies = []
+objects = []
 
 
 class Board:
     def __init__(self, width_b, height_b):
         self.width = width_b
         self.height = height_b
-        self.board = [["-"] * self.width for _ in range(self.height)]
+        self.board = [[0] * self.width for _ in range(self.height)]
         self.left = (WIDTH - self.width * TILE_SIZE) // 6
         self.top = (HEIGHT - self.height * TILE_SIZE) // 2
         self.cell_size = TILE_SIZE
+
         self.transparent = pygame.Surface((self.width * self.cell_size, self.height * self.cell_size))
         self.transparent.set_alpha(150)
         self.transparent.fill(pygame.Color("#0a0a0a"))
@@ -52,14 +61,31 @@ class Board:
             self.on_click(cell)
 
 
+class Level:
+    def __init__(self, left, top, map_level, group_sprites):
+        for i in range(len(map_level)):
+            for j in range(len(map_level[0])):
+                position = (j * TILE_SIZE + left, i * TILE_SIZE + top)
+                if map_level[i][j] == "#":
+                    Wall(position, "fon_fight_screen.png", group_sprites)
+                elif map_level[i][j] == "1":
+                    name_character = "Боец"
+                    Warrior(position, "fight.png", name_character, group_sprites)
+                elif map_level[i][j] == "z":
+                    Zombie(position, group_sprites)
+
+
 class FightScreen:
-    def __init__(self, screen):
+    def __init__(self, screen, type_of_levels, level):
         self.screen = screen
         self.fight_screen_sprites = pygame.sprite.Group()
+
         self.board = Board(15, 15)
+        self.level = Level(self.board.left, self.board.top, load_level(f"levels/{type_of_levels}-{level}.txt"),
+                           self.fight_screen_sprites)
 
     def draw_fight_screen(self):
-        fon = pygame.transform.scale(load_image('fon_fight_screen.png'), (WIDTH, HEIGHT))
+        fon = pygame.transform.scale(load_image("fon_fight_screen.png"), (WIDTH, HEIGHT))
         self.screen.blit(fon, (0, 0))
 
         self.board.render(self.screen)
