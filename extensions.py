@@ -3,6 +3,9 @@ import sys
 import pygame
 from pygame import Surface
 
+from constants import TILE_SIZE
+from sprites.ui.ui_board import board_level
+
 
 def load_image(name, color_key=None) -> Surface:
     fullname = os.path.join('data', name)
@@ -54,29 +57,16 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def light_screen(surface):
-    target_alpha = 255
-    duration = 5000  # time
-    step = target_alpha / (duration / 100)  # шаг
-    target_alpha = 0
-    if surface.get_alpha() > target_alpha:
-        current_alpha = surface.get_alpha()
-        current_alpha -= step
-        if current_alpha <= target_alpha:
-            current_alpha = target_alpha
-        surface.set_alpha(current_alpha)
+def have_way(screen, pos1, pos2, speed):
+    answer = False
+    if pos1[0] - pos2[0] <= speed * TILE_SIZE and pos1[1] - pos2[1] <= speed * TILE_SIZE:
+        answer = True
 
-
-def blackout_screen(surface, fun):
-    duration = 5000  # time
-    step = 255 / (duration / 100)  # шаг
-    if surface.get_alpha() < 255:
-        fun
-        current_alpha = surface.get_alpha()
-        current_alpha += step
-        if current_alpha > 255:
-            current_alpha = 255
-        surface.set_alpha(current_alpha)
-        return current_alpha
+    if answer:
+        color = pygame.Color("dbdbdb")
     else:
-        return 255
+        color = pygame.Color("ff4e33")
+    pos2 = board_level.get_click(pos2)
+    if pos2 is not None:
+        pygame.draw.line(screen, color, pos1, pos2, 3)
+        pygame.draw.circle(screen, color, pos2, TILE_SIZE // 2 - 2, 1)

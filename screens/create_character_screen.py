@@ -3,7 +3,6 @@ import pygame
 from constants import WIDTH, HEIGHT
 from extensions import load_image
 from sprites.ui.ui_button import Button
-from sprites.ui.ui_text import Text
 from sprites.ui.ui_window import Window
 from sprites.entity.classes.warrior import Warrior
 
@@ -18,7 +17,7 @@ class CreateCharacter:
         self.button_end = Button((10, 500), (200, 100), "fight.png", self.create_character_screen_sprites,
                                  text="Завершить")
         self.window_class = pygame.sprite.Group()
-        Window((250, 20), (400, 900), self.window_class)
+        Window((250, 20), (400, 900), self.window_class, text="Классы")
 
     def draw_start_screen(self, position_click_mouse):
         fon = pygame.transform.scale(load_image('fon_create_character_screen.jpg'), (WIDTH, HEIGHT))

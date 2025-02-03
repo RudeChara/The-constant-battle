@@ -14,6 +14,6 @@ class Window(pygame.sprite.Sprite):
         self.image.fill(color1, pygame.Rect(3, 3, size[0] - 6, size[1] - 6))
         self.rect = pygame.Rect(position[0], position[1], size[0], size[1])
 
-        font = pygame.font.Font(FONT_NAME, 20)
+        font = pygame.font.Font(FONT_NAME, 30)
         text = font.render(text, False, pygame.Color(text_color))
         self.image.blit(text, (5, 5))

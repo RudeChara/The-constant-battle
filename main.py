@@ -1,6 +1,6 @@
 import sys
 import pygame
-from extensions import blackout_screen, light_screen
+
 from constants import WIDTH, HEIGHT, FPS
 from screens.start_screen import StartScreen
 from screens.create_character_screen import CreateCharacter
@@ -27,6 +27,7 @@ if __name__ == '__main__':
     start_screen = StartScreen(screen)
     create_character_screen = CreateCharacter(screen)
     fight_screen = None
+    level_up_screen = None
 
     while running:
         for event in pygame.event.get():
@@ -48,6 +49,10 @@ if __name__ == '__main__':
             if fight_screen is None:
                 fight_screen = FightScreen(screen, 1, 1)
             fight_screen.draw_fight_screen()
+        elif scene == "level_up":
+            if level_up_screen is None:
+                level_up_screen = None
+            level_up_screen.draw_level_up_screen()
 
         pygame.display.flip()
         clock.tick(FPS)
