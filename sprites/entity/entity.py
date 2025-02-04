@@ -28,10 +28,6 @@ class Entity(pygame.sprite.Sprite):
     def __str__(self):
         return self.name
 
-    def use_skill(self, skills):
-        if skills["move"]:
-            have_way(self.rect.center, )
-
     def taking_damage(self, damage, sender):
         messages.append(f"{self.name} получил(а) {damage} от {sender}.")
         self.hp -= damage

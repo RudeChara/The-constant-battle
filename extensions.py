@@ -1,6 +1,7 @@
 import os
 import sys
 import pygame
+from copy import deepcopy
 from pygame import Surface
 
 from constants import TILE_SIZE
@@ -57,16 +58,10 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def have_way(screen, pos1, pos2, speed):
-    answer = False
-    if pos1[0] - pos2[0] <= speed * TILE_SIZE and pos1[1] - pos2[1] <= speed * TILE_SIZE:
-        answer = True
+def have_way(pos1, pos2, speed, board=deepcopy(board_level.board)):
+    if speed > 0:
+        if (abs(pos1[0] - pos2[0]) == 1 and pos1[1] - pos2[1] == 0 or abs(pos1[1] - pos2[1]) == 1
+                and pos1[0] - pos2[0] == 0):
+            board_level[pos2[0]][pos2[1]] = "z"
+            board_level[pos2[0]][pos2[1]] = "."
 
-    if answer:
-        color = pygame.Color("dbdbdb")
-    else:
-        color = pygame.Color("ff4e33")
-    pos2 = board_level.get_click(pos2)
-    if pos2 is not None:
-        pygame.draw.line(screen, color, pos1, pos2, 3)
-        pygame.draw.circle(screen, color, pos2, TILE_SIZE // 2 - 2, 1)

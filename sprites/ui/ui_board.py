@@ -4,10 +4,10 @@ from constants import WIDTH, HEIGHT, TILE_SIZE
 
 
 class Board:
-    def __init__(self, width_b, height_b):
+    def __init__(self, width_b, height_b, level_map):
         self.width = width_b
         self.height = height_b
-        self.board = [[0] * self.width for _ in range(self.height)]
+        self.board = [[item for item in line] for line in level_map]
         self.left = (WIDTH - self.width * TILE_SIZE) // 6
         self.top = (HEIGHT - self.height * TILE_SIZE) // 2
         self.cell_size = TILE_SIZE
@@ -42,7 +42,7 @@ class Board:
         return x, y
 
     def on_click(self, cell_coord):
-        return cell_coord[0] * TILE_SIZE // 2, cell_coord[1] * TILE_SIZE // 2
+        return self.left + cell_coord[0] * TILE_SIZE, self.top + cell_coord[1] * TILE_SIZE
 
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
@@ -50,4 +50,4 @@ class Board:
             self.on_click(cell)
 
 
-board_level = Board(15, 15)
+board_level = Board(15, 15, [[[0] for _ in range(15)] for _ in range(15)])
