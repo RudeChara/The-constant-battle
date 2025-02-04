@@ -55,7 +55,7 @@ if __name__ == '__main__':
             scene = start_screen.draw_start_screen(position_click_mouse)
         elif scene == "fight":
             blackout_screen(dark_surface, start_screen.draw_start_screen(position_click_mouse),
-                            fight_screen.draw_fight_screen)
+                            fight_screen.draw_fight_screen)# первую функцию передавать с скобками а так я  остальную часть кастрировал
         # elif scene == 'edu':
         #     if current_alpha == 255:
         #         light_screen(dark_surface, 1000)

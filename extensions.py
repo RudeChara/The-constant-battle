@@ -3,7 +3,7 @@ import sys
 import pygame
 from pygame import Surface
 from constants import WIDTH, HEIGHT
-target_alpha = 254
+target_alpha = 254# это
 
 def load_image(name, color_key=None) -> Surface:
     fullname = os.path.join('data', name)
@@ -66,22 +66,19 @@ def load_level(filename):
 #             current_alpha = target_alpha
 #         surface.set_alpha(current_alpha)
 
-def light_screen(alpha, function_dark, dark_surface):
+def light_screen(alpha, function_dark, dark_surface):# это
     global target_alpha
     alpha -= 5
-    print('a', target_alpha)
-    print('tg', dark_surface.get_alpha())
     function_dark()
     if alpha < target_alpha:
         alpha = 0
     dark_surface.set_alpha(alpha)
 
 
-def blackout_screen(dark_surface, function_light, function_dark):
+def blackout_screen(dark_surface, function_light, function_dark):# это
     global target_alpha
     alpha = dark_surface.get_alpha()
     fade_duration = 5000
-    print(target_alpha)
     fade_step = target_alpha / (fade_duration / 100)
     if alpha < target_alpha and alpha != 0 and alpha != 255:
         alpha += fade_step
