@@ -17,3 +17,5 @@ class Zombie(Entity):
             if entity in [Warrior]:
                 have_way(screen, board_level.get_cell(self.position), board_level.get_cell(position_click_mouse))
 
+    def damage(self, damage):
+        return self.taking_damage(damage, 'игрок')

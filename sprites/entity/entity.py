@@ -4,7 +4,7 @@ from random import randint
 from constants import FONT_NAME, TILE_SIZE
 from extensions import load_image, set_color, have_way
 from chat import messages
-
+from sprites.ui.ui_button import Button
 
 class Entity(pygame.sprite.Sprite):
     def __init__(self, position, image, name, *group_sprites, hp=1, speed=2, text_color="#fafafa"):
@@ -15,6 +15,7 @@ class Entity(pygame.sprite.Sprite):
         self.name = name
         self.initiative_bonus = 0
         self.skills = {}
+        # self.image = Button((1500, 900), (400, 50), image, group_sprites,)
         self.image = pygame.transform.scale(load_image(image), (TILE_SIZE, TILE_SIZE))
         self.rect = pygame.Rect(position[0], position[1], TILE_SIZE, TILE_SIZE)
 

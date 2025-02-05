@@ -65,3 +65,35 @@ def have_way(pos1, pos2, speed, board=deepcopy(board_level.board)):
             board_level[pos2[0]][pos2[1]] = "z"
             board_level[pos2[0]][pos2[1]] = "."
 
+def light_screen(alpha, function_dark, dark_surface, pos=None):  # это
+    global target_alpha
+    alpha -= 5
+    if pos is None:
+        function_dark()
+    else:
+        function_dark(pos)
+    if alpha < target_alpha:
+        alpha = 0
+    dark_surface.set_alpha(alpha)
+
+
+def blackout_screen(dark_surface, function_light, function_dark, pos=None):  # это
+    global target_alpha
+    alpha = dark_surface.get_alpha()
+    fade_duration = 5000
+    fade_step = target_alpha / (fade_duration / 100)
+    if alpha < target_alpha and alpha != 0 and alpha != 255:
+        alpha += fade_step
+        if alpha >= target_alpha:
+            alpha = 255
+        dark_surface.set_alpha(alpha)
+    elif alpha > target_alpha:
+        target_alpha = 0
+        light_screen(alpha, function_dark, dark_surface, pos)
+        alpha = dark_surface.get_alpha()
+    else:
+        target_alpha = 254
+        if pos is None:
+            function_dark()
+        else:
+            function_dark(pos)

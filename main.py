@@ -45,11 +45,25 @@ if __name__ == '__main__':
         if scene == "start":
             scene = start_screen.draw_start_screen(position_click_mouse)
         elif scene == "create_character":
-            scene = create_character_screen.draw_screen(position_click_mouse)
+            scene = 'fight'
         elif scene == "fight":
             if fight_screen is None:
                 fight_screen = FightScreen(screen, 1, level)
             scene = fight_screen.draw_fight_screen(position_click_mouse)
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_DOWN]:
+                        fight_screen.button_down()
+                    if keys[pygame.K_UP]:
+                        fight_screen.button_up()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        fight_screen.pkm(position_click_mouse)
+                if event.type == pygame.KEYDOWN:
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_ESCAPE]:
+                        terminate()
         elif scene == "reload":
             fight_screen = None
             level += 1
