@@ -4,5 +4,5 @@ from sprites.entity.entity import Entity
 
 
 class Warrior(Entity):
-    def damege(self, dmg):
+    def damage(self, dmg):
         self.taking_damage(dmg, 'зомби')

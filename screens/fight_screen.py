@@ -71,8 +71,8 @@ class FightScreen:
                 Text((1500, 50 + i * 60), (550, 150), self.texts_sprites, text=[self.entities[i].name],
                      font_size=30, text_color="#6495ed")
                 self.now_name = self.entities[i].name
-                if self.entities[i].name == 'зомби':
-                    self.entities[-1].damege(10)
+                # if self.entities[i].name == 'зомби':
+                #     self.entities[-1].damege(10)
 
     def button_up(self):
         self.spell += 1
@@ -87,18 +87,17 @@ class FightScreen:
         print(self.spell)
 
     def pkm(self, pos, id=0):
-        if self.now_name == self.entities[-1].name:
-            if len(self.entities) == 1:
-                Text((500, 500), (300, 300), self.texts_sprites, text="Победа",
-                     font_size=30, text_color="#6495ed")
-            else:
-                self.x = 1
-                self.entities[id].damage(self.spells[self.spell][1])
-                self.entities.remove(self.entities[0])
-                print(self.entities)
-                self.start_motion()
-        else:
-            pass
+
+        # if len(self.entities) == 1:
+        #     Text((500, 500), (300, 300), self.texts_sprites, text="Победа",
+        #          font_size=30, text_color="#6495ed")
+        # else:
+        self.x = 1
+        self.entities[id].damage(self.spells[self.spell][1])
+        self.entities.remove(self.entities[id])
+        print(self.entities)
+        self.start_motion()
+
 
 
 def create_level(left, top, map_level, entities, group_sprites):

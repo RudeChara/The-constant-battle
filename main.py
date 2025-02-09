@@ -5,7 +5,7 @@ from constants import WIDTH, HEIGHT, FPS
 from screens.start_screen import StartScreen
 from screens.create_character_screen import CreateCharacter
 from screens.fight_screen import FightScreen
-
+from screens.training_screen import Training_screen
 
 def terminate():
     pygame.quit()
@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
     start_screen = StartScreen(screen)
     create_character_screen = CreateCharacter(screen)
+    edu_screen = Training_screen(screen)
     fight_screen = None
     level = 1
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
         if scene == "start":
             scene = start_screen.draw_start_screen(position_click_mouse)
         elif scene == "create_character":
-            scene = 'fight'
+            scene = create_character_screen.draw_screen(position_click_mouse)
         elif scene == "fight":
             if fight_screen is None:
                 fight_screen = FightScreen(screen, 1, level)
@@ -68,6 +69,8 @@ if __name__ == '__main__':
             fight_screen = None
             level += 1
             scene = "fight"
+        elif scene == 'edu':
+           scene = edu_screen.draw_screen(position_click_mouse)
 
         pygame.display.flip()
         clock.tick(FPS)

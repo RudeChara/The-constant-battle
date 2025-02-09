@@ -13,6 +13,7 @@ class StartScreen:
         self.name_game = Text((50, 50), (2000, 100), self.start_screen_sprites,
                               text="The Constant Battle", font_size=100)
         self.button_play = Button((10, 900), (200, 100), "fight.png", self.start_screen_sprites, text="Начать")
+        self.button_edu = Button((300, 900), (210, 200), "book.png", self.start_screen_sprites, text="Обучение")
 
     def draw_start_screen(self, position_click_mouse):
         fon = pygame.transform.scale(load_image('fon_start_screen.jpg'), (WIDTH, HEIGHT))
@@ -22,4 +23,6 @@ class StartScreen:
         self.start_screen_sprites.update(position_click_mouse)
         if self.button_play.need_change == "already":
             return "create_character"
+        elif self.button_edu.need_change == "already":
+                return "edu"
         return "start"
